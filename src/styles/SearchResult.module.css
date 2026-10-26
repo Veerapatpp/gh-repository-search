@@ -1,0 +1,27 @@
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 6.25rem 6.25rem 6.25rem;
+  grid-gap: 0.625rem;
+  background-color: #fff;
+  color: #444;
+}
+
+.box {
+  background-color: #444;
+  color: #fff;
+  border-radius: 0.313rem;
+  padding: 1.25rem;
+  font-size: 150%;
+}
+
+.center{
+    align-items: center;
+}
+
+.count {
+    margin: 0 0 1rem;
+    font-size: 0.875rem;
+    color: var(--color-muted);
+    text-align: right;
+}

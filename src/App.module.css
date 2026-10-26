@@ -1,0 +1,10 @@
+.main {
+    max-width: 85rem;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+}
+
+.title {
+  margin: 0 0 1.5rem;
+  text-align: center;
+}

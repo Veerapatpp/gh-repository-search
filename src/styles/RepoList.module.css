@@ -1,0 +1,13 @@
+.empty {
+  color: var(--color-muted);
+  text-align: center;
+}
+
+.list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
