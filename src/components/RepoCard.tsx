@@ -4,6 +4,11 @@ import { LANGUAGE_COLORS } from "../types/Colors";
 import { useRef } from "react";
 import { RepoDetailDialog } from "./RepoDetailDialog";
 
+type Props = {
+    repo: Repository;
+};
+
+
 const relativeTime = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
 
 const formatUpdated = (iso: string) => {
@@ -15,10 +20,6 @@ const formatUpdated = (iso: string) => {
 
 const formatCount = (count: number) =>
     new Intl.NumberFormat("en", { notation: "compact", maximumFractionDigits: 1 }).format(count);
-
-type Props = {
-    repo: Repository;
-};
 
 export const RepoCard = ({ repo }: Props) => {
     const topics = repo.topics?.slice(0, 4) ?? [];

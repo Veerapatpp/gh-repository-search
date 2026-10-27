@@ -1,75 +1,69 @@
-# React + TypeScript + Vite
+# GitHub Repository Search
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Search GitHub repositories with React + TypeScript.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 日本語
 
-## React Compiler
+### 起動
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+### 技術スタック
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- Vite, React 19, TypeScript
+- TanStack Query（`useSuspenseQuery`）
+- React Router（検索ワードとページをURLで管理）
+- react-error-boundary
+- CSS Modules（UIライブラリ不使用）
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 機能
 
+- 検索とページネーション
+- ローディング中のスケルトン表示
+- カードクリックで詳細をダイアログ表示
+- レート制限時のエラー表示と再試行
+- レスポンシブ、ダークモード対応
+
+### メモ
+
+- Search API は最大1,000件までしか取得できないため、ページ数もそこで制限しています。
+- 認証なしの検索は1分10回まで。トークンはフロントエンドに露出してしまうため使っていません。
+- TanStack Query でキャッシュし、リクエスト数を抑えています。
+
+## English
+
+### Run
+
+```bash
+npm install
+npm run dev
 ```
+
+### Stack
+
+- Vite, React 19, TypeScript
+- TanStack Query (`useSuspenseQuery`)
+- React Router (query and page are kept in the URL)
+- react-error-boundary
+- CSS Modules (no UI library)
+
+### Features
+
+- Search with pagination
+- Skeleton while loading
+- Click a card to see details in a dialog
+- Rate limit error message with retry
+- Responsive, dark mode
+
+### Notes
+
+- The Search API returns max 1,000 results, so pages are capped at that.
+- Unauthenticated search is limited to 10 requests/min. I didn't use a token because it would be exposed in the frontend.
+- Results are cached with TanStack Query to save requests.
+
+
+

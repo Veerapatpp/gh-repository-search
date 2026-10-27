@@ -5,6 +5,8 @@ import { SearchBar } from "./components/Searchbar";
 import { SearchResults } from "./components/SearchResult";
 import { RepoCardSkeleton } from "./components/Reposkeleton";
 import styles from "./App.module.css"
+import { QueryErrorResetBoundary } from "@tanstack/react-query";
+import { SearchError } from "./components/SearchError";
 
 export default function App() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -29,20 +31,25 @@ export default function App() {
         <SearchBar key={query} defaultValue={query} onSearch={handleSearch} />
 
         {query && (
-          <ErrorBoundary
-            fallback={<p>Something went wrong.</p>}
-            resetKeys={[query, page]}
-          >
-            <ViewTransition update="auto" default="none">
-              <Suspense key={`${query}-${page}`} fallback={(<RepoCardSkeleton />)}>
-                <SearchResults
-                  query={query}
-                  page={page}
-                  onPageChange={handlePageChange}
-                />
-              </Suspense>
-            </ViewTransition>
-          </ErrorBoundary>
+          <QueryErrorResetBoundary>
+            {({ reset }) => (
+              <ErrorBoundary
+                FallbackComponent={SearchError}
+                onReset={reset}
+                resetKeys={[query, page]}
+              >
+                <ViewTransition update="auto" default="none">
+                  <Suspense key={`${query}-${page}`} fallback={(<RepoCardSkeleton />)}>
+                    <SearchResults
+                      query={query}
+                      page={page}
+                      onPageChange={handlePageChange}
+                    />
+                  </Suspense>
+                </ViewTransition>
+              </ErrorBoundary>
+            )}
+          </QueryErrorResetBoundary>
         )}
       </main>
     </div>
